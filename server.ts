@@ -472,6 +472,43 @@ print(json.dumps(result))
     }
   });
 
+  // Download Git Bundle (Complete Git History & Commits)
+  app.get('/api/download/bundle', (_req, res) => {
+    const bundlePath = path.join(process.cwd(), 'induxia-v1-4.bundle');
+    if (fs.existsSync(bundlePath)) {
+      res.setHeader('Content-Type', 'application/octet-stream');
+      res.setHeader('Content-Disposition', 'attachment; filename="induxia-v1-4.bundle"');
+      const fileStream = fs.createReadStream(bundlePath);
+      fileStream.pipe(res);
+    } else {
+      res.status(404).json({ error: 'Fichier bundle introuvable.' });
+    }
+  });
+
+  // Push directly to GitHub with user token
+  app.post('/api/git/push', (req, res) => {
+    const { token } = req.body;
+    if (!token || typeof token !== 'string') {
+      return res.status(400).json({ error: 'GitHub Personal Access Token requis.' });
+    }
+    const cleanToken = token.trim();
+    const repoWithToken = `https://${cleanToken}@github.com/ndiayebayemoussa04-create/INDUXIA-V1.4.git`;
+
+    execFile('git', ['push', repoWithToken, 'main'], (err, stdout, stderr) => {
+      if (err) {
+        return res.status(500).json({
+          error: 'Échec du push vers GitHub. Vérifiez les permissions de votre Personal Access Token.',
+          details: stderr || err.message,
+        });
+      }
+      res.json({
+        success: true,
+        message: 'Dépôt poussé avec succès sur https://github.com/ndiayebayemoussa04-create/INDUXIA-V1.4 !',
+        output: stdout || stderr,
+      });
+    });
+  });
+
   // 13. Energy & ISO 50001 Correlation (Roadmap V1.5)
   app.get('/api/energy/telemetry', (_req, res) => {
     res.json({
