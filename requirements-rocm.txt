@@ -1,0 +1,3 @@
+# INDUXIA V1.4 - AMD ROCm Requirements (Production & Hardware Acceleration on AMD GPUs)
+-r requirements-cpu.txt
+torch>=2.2.0

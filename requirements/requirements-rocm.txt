@@ -1,0 +1,7 @@
+# INDUXIA V1.4 - AMD ROCm Requirements (Production & Hardware Acceleration on AMD GPUs)
+# Note: Install PyTorch for ROCm following official instructions for your specific ROCm version (e.g. ROCm 6.0 / 6.1 / 6.2)
+# Example: pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.0
+-r requirements-cpu.txt
+torch>=2.2.0
+# Optional optimized local LLM inference engines with ROCm support:
+# vllm (ROCm wheel) or llama-cpp-python (with HIPBLAS=ON)

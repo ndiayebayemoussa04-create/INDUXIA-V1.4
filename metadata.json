@@ -1,0 +1,6 @@
+{
+  "name": "INDUXIA V1.4 - Industrial AI & Resilience Platform",
+  "description": "Plateforme industrielle d'IA et de résilience avec moteur local AMD ROCm, Copilote RAG souverain, diagnostics et benchmarks certifiés.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
